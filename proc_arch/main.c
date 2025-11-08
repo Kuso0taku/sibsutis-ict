@@ -27,10 +27,13 @@ void geti(int*num) {
 void puti(int num, char *ch) {
   char s[21];
   char *p = s;
+  // reads digits in reverse
   for (int n=num; n > 0; n/=10) *p++ = ('0' + n%10);
   int len = p - s;
+  p = ch;
+  // prints in normal way with encryption
   for (int i=len-1; i>=0; i--) {
-    putchar((*(s+i)-'0' + *(ch+i))%10 + '0');
+    putchar((*(s+i)-'0' + *(p++))%10 + '0');
   }
   putchar('\n');
 }
