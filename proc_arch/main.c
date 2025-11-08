@@ -3,7 +3,11 @@
 #include <math.h> // pow
 #include <string.h>
 
-char memory[65536];
+#define MEM 65536
+#define DATA 64*1024 // L1d = 288KiB (6 intenses) => 48KiB/core
+
+char memory[MEM];
+char data[DATA];
 
 // reads first number from stdout
 void geti(int*num) {
@@ -31,8 +35,14 @@ void puti(int num) {
 }
 
 int main() {
+  setbuf(stdin, NULL); // no-buff stdin
+
   int N=0, sum=0;
   geti(&N);
-  for (int i=1; i<=N; i++) {sum += i; memory[i%65536] = i%256;}
+  for (int i=1; i<=N; i++) {
+    sum += i; 
+    memory[i%MEM] = i%256;
+    data[i%DATA] = (sum+i)%256;
+  }
   puti(sum);
 }
