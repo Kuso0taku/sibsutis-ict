@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <ctype.h> // isdigit
 #include <math.h> // pow
+#include <string.h>
 
+// reads first number from stdout
 void geti(int*num) {
   char s[21]; // max number of digits + 1 for int 64-bit
   char *p = s;
@@ -16,8 +18,18 @@ void geti(int*num) {
   for (int i=pow(10, count-1); i>0; i/=10, p++) *num += (*p-'0')*i;
 }
 
+// prints number
+void puti(int num) {
+  char s[21];
+  char *p = s;
+  for (int i=1, n=num; n > 0; i++, n/=10) *p++ = ('0' + n%10);
+  int len = strlen(s);
+  for (int i=len-1; i>=0; i--) putchar(*(s+i));
+  putchar('\n');
+}
+
 int main() {
   int n;
   geti(&n);
-  printf("\n%d\n", n);
+  puti(n);
 }
