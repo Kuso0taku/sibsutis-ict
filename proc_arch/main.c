@@ -3,6 +3,8 @@
 #include <math.h> // pow
 #include <string.h>
 
+char memory[65536];
+
 // reads first number from stdout
 void geti(int*num) {
   char s[21]; // max number of digits + 1 for int 64-bit
@@ -29,7 +31,8 @@ void puti(int num) {
 }
 
 int main() {
-  int n;
-  geti(&n);
-  puti(n);
+  int N=0, sum=0;
+  geti(&N);
+  for (int i=1; i<=N; i++) {sum += i; memory[i%65536] = i%256;}
+  puti(sum);
 }
