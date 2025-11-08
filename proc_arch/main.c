@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <ctype.h> // isdigit
 #include <math.h> // pow
-#include <string.h>
 
 #define MEM 65536
 #define DATA 64*1024 // L1d = 288KiB (6 intenses) => 48KiB/core
@@ -25,24 +24,37 @@ void geti(int*num) {
 }
 
 // prints number
-void puti(int num) {
+void puti(int num, char *ch) {
   char s[21];
   char *p = s;
-  for (int i=1, n=num; n > 0; i++, n/=10) *p++ = ('0' + n%10);
-  int len = strlen(s);
-  for (int i=len-1; i>=0; i--) putchar(*(s+i));
+  for (int n=num; n > 0; n/=10) *p++ = ('0' + n%10);
+  int len = p - s;
+  for (int i=len-1; i>=0; i--) {
+    putchar((*(s+i)-'0' + *(ch+i))%10 + '0');
+  }
   putchar('\n');
+}
+
+// reads a line
+void getl(char *s) {
+  char ch;
+  char *p=s;
+  while ((ch=getchar()) != ' ' && ch!='\n' && ch!='\t' && ch!=EOF) *p++ = ch;
+  *p='\0';
 }
 
 int main() {
   setbuf(stdin, NULL); // no-buff stdin
 
   int N=0, sum=0;
+  char proc_model[20] = {0};
+
+  getl(proc_model);
   geti(&N);
   for (int i=1; i<=N; i++) {
     sum += i; 
     memory[i%MEM] = i%256;
     data[i%DATA] = (sum+i)%256;
   }
-  puti(sum);
+  puti(sum, proc_model);
 }
