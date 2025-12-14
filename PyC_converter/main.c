@@ -222,8 +222,6 @@ void asgn_proc(wchar_t buffer[BUFFER_SIZE], wchar_t vars[WORDS_SIZE][WORDS_SIZE]
                size_t *cntv, size_t *i) {
   // word copy to var
   wcpy(word, var);
-  
-  // wprintf(L"{[DEBUG] %ls}", var); // var is declared correctly
 
   // skip spaces after variable
   skip_before_wch(buffer, L'=', i);
@@ -235,7 +233,7 @@ void asgn_proc(wchar_t buffer[BUFFER_SIZE], wchar_t vars[WORDS_SIZE][WORDS_SIZE]
   if (new) {
     add_word_a(vars, var, *cntv);
     fputws(L"int ", stdout);
-    *(cntv)++;
+    (*cntv)++;
   }
 
   // print var and L'='
@@ -274,7 +272,7 @@ int main() {
   wchar_t buffer[BUFFER_SIZE] = {L'\0'};
   wchar_t word[WORD_SIZE] = {L'\0'};
   wchar_t var[WORD_SIZE] = {L'\0'};
-  wchar_t vars[WORDS_SIZE][WORD_SIZE] = {L'\0'};
+  wchar_t vars[WORDS_SIZE][WORD_SIZE] = {{L'\0'}};
   wint_t ch = 0; // character
   size_t cntv=0; // number of stored variables 
   size_t wlen=0; // word len
