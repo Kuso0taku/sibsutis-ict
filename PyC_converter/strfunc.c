@@ -35,8 +35,8 @@ wchar_t *cmpnw(wchar_t *word1, wchar_t *word2, size_t n) {
 
 // checks if char is space-char 
 _Bool wisspace(wchar_t wch) {
-  if (wch == L'\n' || wch == L'\t' || wch == L' ' || wch == L'\r') return true;
-  return false;
+  if (wch == L'\n' || wch == L'\t' || wch == L' ' || wch == L'\r') return 1;
+  return 0;
 }
 
 // skip cpecific char 

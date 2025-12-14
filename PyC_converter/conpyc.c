@@ -1,4 +1,5 @@
 #include "conpyc.h"
+#include "strfunc.h"
 
 // for loop condition (making brackets) processing 
 void for_cond_proc(wchar_t buffer[BUFFER_SIZE], size_t *i) {
